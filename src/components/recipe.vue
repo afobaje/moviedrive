@@ -10,7 +10,7 @@
             <input type="text" name="" id="" :placeholder="placeholder" @keyup.13="getSearch()" v-model="searchtext">
         </div>
             <div class="resultindex">
-            <div class="results" v-for="(result,index) in results" :key="index.id" @click="getId(result,index)">
+            <div class="results" v-for="(result,index) in results" :key="index.id" @click="getId(result)">
             <img :src="result.Poster" :alt="result.imdbID" >
             <p>{{result.Title}}</p>
             <p>{{result.Year}}</p>
@@ -23,8 +23,6 @@
             
             <button id="backbutton" @click="displayType='grid'">Back</button>
             <div class="resultdetails">
-                <!--<button @click="displayType='grid'">Back</button>-->
-                
                 <img :src="searchIndex.Poster" :alt="searchIndex.Title">
                 <div class="infotain">
                     <h2>{{searchIndex.Title}}</h2>
@@ -98,26 +96,25 @@ export default {
         getSearch(){
             axios.get(`http://www.omdbapi.com/?s=${this.searchtext}&apikey=${this.APIKEY}`)
             .then(response=>{
-               //this.value=response
-               // console.log(response.data.Search[0].Title)
+                this.value=response
                 this.results=response.data.Search
                
                 
             })
             .catch(err=>{
-                console.log(err)
+                
                 this.baderr=err
             })
         },
-        getId(result,index){
+        getId(result){
             this.displayType='details'
-            console.log(index)
+            
             this.selectedItem=result
-            console.log(this.selectedItem.imdbID)
+            
             axios.get(`http://www.omdbapi.com/?i=${this.selectedItem.imdbID}&apikey=${this.APIKEY}`)
             .then(response=>{
                 this.searchIndex=response.data
-                console.log(this.searchIndex)
+                
             })
         }
     }
@@ -129,14 +126,10 @@ export default {
 $input-color: #dbdbdb;
 $button-color: #0095f6;
 .recipe{
-    //background-color: #87ceeb;
     margin-top: .5em;
     height: auto;
     font-family: 'Roboto', sans-serif;
     padding: 1em;
-    //color:  $main-color;
-    
-
 }
 .suggestions{
     input[type="text"]{
@@ -144,7 +137,6 @@ $button-color: #0095f6;
         height: 2em;
         outline: none;
         border-color: black;
-        //color: $input-color;
         border: solid 1px $input-color;
     }
 }
@@ -161,10 +153,9 @@ $button-color: #0095f6;
         height: 24em;
         border-radius: 10px;
         width: 300px; 
-        //cursor: pointer;
         margin-top: 1em;
         transition: .5s ease-in-out;;
-        &:hover{
+        &:hover,&:active{
             box-shadow: 0 0 8px black;
         }
         img{
@@ -194,7 +185,7 @@ $button-color: #0095f6;
         //cursor: pointer;
         margin-top: 1em;
         transition: .5s ease-in-out;;
-        &:hover{
+        &:hover,&:active{
             box-shadow: 0 0 8px black;
         }
         img{
@@ -226,7 +217,7 @@ $button-color: #0095f6;
         cursor: pointer;
         margin-top: 1em;
         transition: .5s ease-in-out;;
-        &:hover{
+        &:hover,&:active{
             box-shadow: 0 0 8px black;
         }
         img{
@@ -243,16 +234,14 @@ $button-color: #0095f6;
  .resultdetails{
     display: flex;
     margin-top: 1em;
-   // grid-template-columns: 1fr;
+   
     .infotain{
-        //grid-column: span;
+        
         text-align: left;
     }
 
     ul{
         list-style: none;
-       // grid-row: span;
-       // grid-column: span;
         padding: 0;
         margin: 0;
         li{
