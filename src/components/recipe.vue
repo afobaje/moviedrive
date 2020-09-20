@@ -1,9 +1,7 @@
 <template>
     <div class="recipe">
         
-        <span v-if="baderr">
-            {{baderr}}
-        </span>
+        
         <div v-if="displayType=='grid'">
             <div class="suggestions">
             <h3>{{intro}}</h3>
@@ -53,7 +51,9 @@
             
 
         </div>
-        
+        <span v-if="baderr">
+            {{baderr}}
+        </span>
 
     </div>
 </template>
