@@ -94,7 +94,7 @@ export default {
     methods:{
         
         getSearch(){
-            axios.get(`https://www.omdbapi.com/?s=${this.searchtext}&apikey=${this.APIKEY}/`)
+            axios.get(`https://www.omdbapi.com/?s=${this.searchtext}&apikey=${this.APIKEY}`)
             .then(response=>{
                 this.value=response
                 this.results=response.data.Search
@@ -111,7 +111,7 @@ export default {
             
             this.selectedItem=result
             
-            axios.get(`https://www.omdbapi.com/?i=${this.selectedItem.imdbID}&apikey=${this.APIKEY}/`)
+            axios.get(`https://www.omdbapi.com/?i=${this.selectedItem.imdbID}&apikey=${this.APIKEY}`)
             .then(response=>{
                 this.searchIndex=response.data
                 
